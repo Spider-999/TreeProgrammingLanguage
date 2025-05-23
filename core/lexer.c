@@ -44,11 +44,9 @@ void readChar(Lexer *lexer)
     lexer->readPosition++;
 }
 
-char *readIdentifier(Lexer *lexer)
+size_t getIdentifierSize(Lexer *lexer)
 {
     size_t identifierSize = 0;
-    size_t startPosition = lexer->position;
-    char *identifier = NULL;
 
     while (isLetter(lexer->currentChar))
     {
@@ -56,10 +54,30 @@ char *readIdentifier(Lexer *lexer)
         readChar(lexer);
     }
 
-    identifier = (char*)malloc(sizeof(char) * identifierSize + 1);
+    return identifierSize;
+}
+
+char *readIdentifier(Lexer *lexer, char *identifier)
+{
+    size_t identifierSize = 0;
+    size_t startPosition = lexer->position;
+
+    while (isLetter(lexer->currentChar))
+    {
+        identifierSize++;
+        readChar(lexer);
+    }
+
+    if (identifierSize > MAX_IDENTIFIER_SIZE)
+    {
+        fprintf(stderr, "[MEMORY ERROR] You cant have identifiers bigger than 32 characters!\n");
+        exit(1);
+    }
+
+    identifier = realloc(identifier,sizeof(char) * identifierSize);
     if (identifier == NULL)
     {
-        fprintf(stderr, "Error: Could not allocate memory for identifier\n");
+        fprintf(stderr, "[MEMORY ERROR] Could not reallocate memory for identifier\n");
         exit(1);
     }
 

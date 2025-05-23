@@ -22,6 +22,6 @@ typedef struct Lexer
 ************************************************************/
 Lexer  newLexer(char *);
 void   readChar(Lexer *);
-char*  readIdentifier(Lexer *);
+char*  readIdentifier(Lexer *, char *);
 
 #endif //LEXER_H

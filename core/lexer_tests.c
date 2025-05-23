@@ -7,7 +7,7 @@
 
 void TestNextToken()
 {
-    char input[] = "=+,;(){}let";
+    char input[] = "=+,;(){} let";
     Lexer lexer = newLexer(input);
 
     size_t testSize = sizeof(testTokens) / sizeof(testTokens[0]);
