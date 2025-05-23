@@ -1,29 +1,33 @@
 #ifndef TOKEN_H
 #define TOKEN_H
+/************************************************************
+* INCLUDES
+************************************************************/
+#include "lexer.h"
 
 /************************************************************
 * ENUMS
 ************************************************************/
 typedef enum TokenType
 {
-    ILLEGAL,    // Reserved for unknown tokens.
-    EOF,        // Reserved for end-of-file, tells the parser it can stop parsing.
+    ILLEGAL_TOK,    // Reserved for unknown tokens.
+    EOF_TOK,        // Reserved for end-of-file, tells the parser it can stop parsing.
     // Identifiers and literals
-    IDENTIFIER,
-    INT,
+    IDENTIFIER_TOK,
+    INTEGER_TOK,
     // Operators
-    ASSIGN,
-    PLUS,
+    ASSIGN_TOK,
+    PLUS_TOK,
     // Delimiters
-    COMMA,
-    SEMICOLON,
-    LEFT_PARENTHESIS,
-    RIGHT_PARENTHESIS,
-    LEFT_BRACKET,
-    RIGHT_BRACKET,
+    COMMA_TOK,
+    SEMICOLON_TOK,
+    LEFT_PARENTHESIS_TOK,
+    RIGHT_PARENTHESIS_TOK,
+    LEFT_BRACKET_TOK,
+    RIGHT_BRACKET_TOK,
     // Keywords
-    FUNCTION,
-    LET
+    FUNCTION_TOK,
+    LET_TOK
 } TokenType;
 
 /************************************************************
@@ -32,7 +36,33 @@ typedef enum TokenType
 typedef struct Token
 {
     TokenType type; // Holds the type of the token
-    char *literal;  // The literal is the value this token might hold
+    char  *literal; // The literal is the value this token might hold
 } Token;
+
+/************************************************************
+* VARIABLES
+************************************************************/
+static const char *tokenStrings[] =
+{
+    "ILLEGAL",
+    "EOF",
+    "IDENTIFIER",
+    "INTEGER",
+    "=",
+    "+",
+    ",",
+    ";",
+    "(",
+    ")",
+    "{",
+    "}"
+};
+
+/************************************************************
+* FUNCTIONS
+************************************************************/
+Token       getTokenFromLexer(Lexer* );
+Token       createToken(TokenType , char *);
+const char *tokenTypeToString(TokenType);
 
 #endif //TOKEN_H

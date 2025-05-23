@@ -1,7 +1,9 @@
 #include <stdio.h>
 
+#include "core/lexer_tests.h"
+
 int main(void)
 {
-    printf("Hello, World!\n");
+    TestNextToken();
     return 0;
 }
