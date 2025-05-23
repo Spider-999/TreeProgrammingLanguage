@@ -7,7 +7,7 @@
 
 void TestNextToken()
 {
-    char input[] = "=+,;(){}";
+    char input[] = "=+,;(){}let";
     Lexer lexer = newLexer(input);
 
     size_t testSize = sizeof(testTokens) / sizeof(testTokens[0]);
@@ -27,5 +27,7 @@ void TestNextToken()
         {
             fprintf(stderr, "Expected literal \'%s\', got \'%s\'\n", testTokens[i].expectedLiteral, token.literal);
         }
+
+        fprintf(stdout, "%ld %s\n", token.type, token.literal);
     }
 }

@@ -19,14 +19,15 @@ typedef struct TestTokens
 ************************************************************/
 static TestTokens testTokens[] =
 {
-    {ASSIGN_TOK           , "="},
-    {PLUS_TOK             , "+"},
-    {COMMA_TOK            , ","},
-    {SEMICOLON_TOK        , ";"},
-    {LEFT_PARENTHESIS_TOK , "("},
-    {RIGHT_PARENTHESIS_TOK, ")"},
-    {LEFT_BRACKET_TOK     , "{"},
-    {RIGHT_BRACKET_TOK    , "}"},
+    {ASSIGN_TOK           ,  "="},
+    {PLUS_TOK             ,  "+"},
+    {COMMA_TOK            ,  ","},
+    {SEMICOLON_TOK        ,  ";"},
+    {LEFT_PARENTHESIS_TOK ,  "("},
+    {RIGHT_PARENTHESIS_TOK,  ")"},
+    {LEFT_BRACKET_TOK     ,  "{"},
+    {RIGHT_BRACKET_TOK    ,  "}"},
+    {IDENTIFIER_TOK       ,  "let"}
 };
 
 /************************************************************

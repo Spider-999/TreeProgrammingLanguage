@@ -20,7 +20,8 @@ typedef struct Lexer
 /************************************************************
 * FUNCTIONS
 ************************************************************/
-Lexer newLexer(char *);
-void  readChar(Lexer *);
+Lexer  newLexer(char *);
+void   readChar(Lexer *);
+char*  readIdentifier(Lexer *);
 
 #endif //LEXER_H
