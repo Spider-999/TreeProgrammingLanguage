@@ -4,7 +4,6 @@
 #include "lexer.h"
 #include <stdio.h>
 #include <string.h>
-
 #include "token.h"
 #include "utilities.h"
 
@@ -44,6 +43,11 @@ void readChar(Lexer *lexer)
     lexer->readPosition++;
 }
 
+/************************************************************
+* DESCRIPTION:
+* This function returns the next character after the current
+* character.
+************************************************************/
 char peekChar(Lexer *lexer)
 {
     if (lexer->readPosition >= strlen(lexer->input))
@@ -93,8 +97,6 @@ char *readIdentifier(Lexer *lexer, char *identifier)
 
     strncpy(identifier, lexer->input + startPosition, identifierSize);
     identifier[identifierSize] = '\0';
-
-
 
     return identifier;
 }

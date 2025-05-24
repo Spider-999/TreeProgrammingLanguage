@@ -12,18 +12,19 @@
 /************************************************************
 * FUNCTIONS
 ************************************************************/
+/************************************************************
+* DESCRIPTION:
+* This function creates tokens out of the given input.
+************************************************************/
 Token getTokenFromLexer(Lexer *lexer)
 {
     Token token;
     char character = '\0';
 
     // If the lexer's currentChar pointers is on a
-    // whitespace, tab, carriage return or endline
+    // whitespace, tab, carriage return or end line
     // traverse until we find chars that aren't whitespaces.
-    while (isspace(lexer->currentChar))
-    {
-        readChar(lexer);
-    }
+    eatWhitespace(lexer);
 
     character = lexer->currentChar;
 
@@ -137,13 +138,23 @@ Token getTokenFromLexer(Lexer *lexer)
     return token;
 }
 
+/************************************************************
+* DESCRIPTION:
+* Creates a new token from the given literal and token type.
+************************************************************/
+
 Token createToken(const TokenType tokenType, char *literal)
 {
     const Token token = {tokenType, literal};
     return token;
 }
 
-const char* tokenTypeToString(TokenType tokenType)
+/************************************************************
+* DESCRIPTION:
+* Maps the token type to the corresponding string, this is
+* used for debugging.
+************************************************************/
+const char* tokenTypeToString(const TokenType tokenType)
 {
     return tokenStrings[tokenType];
 }
