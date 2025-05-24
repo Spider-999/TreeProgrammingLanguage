@@ -1,10 +1,13 @@
-#include <stdio.h>
+/************************************************************
+* INCLUDES
+************************************************************/
+#include "tests/lexer_tests.h"
 
-#include "core/lexer_tests.h"
-#include "core/repl.h"
-
+/************************************************************
+* MAIN
+************************************************************/
 int main(int argc, char **argv)
 {
-    runInteractiveMode();
+    testNextToken();
     return 0;
 }

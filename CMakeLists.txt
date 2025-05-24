@@ -8,8 +8,8 @@ add_executable(TreeProgrammingLanguage main.c
         core/lexer.c
         core/lexer.h
         core/token.c
-        core/lexer_tests.c
-        core/lexer_tests.h
+        tests/lexer_tests.c
+        tests/lexer_tests.h
         core/utilities.c
         core/utilities.h
         core/repl.c

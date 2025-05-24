@@ -5,7 +5,10 @@
 #include <stdio.h>
 #include <string.h>
 
-void TestNextToken()
+/************************************************************
+* FUNCTIONS
+************************************************************/
+void testNextToken()
 {
     char input[] = "set number1 = 5;"
                    "set number2 = 6;"
