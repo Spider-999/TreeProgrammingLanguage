@@ -8,6 +8,7 @@
 /************************************************************
 * FUNCTIONS
 ************************************************************/
-int isLetter(char c);
+int isLetter(char);
+int isDigit(char);
 
 #endif //UTILITIES_H

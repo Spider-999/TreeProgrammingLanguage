@@ -11,3 +11,8 @@ int isLetter(char c)
 {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' || c == '-';
 }
+
+int isDigit(char d)
+{
+    return (d >= '0' && d <= '9');
+}

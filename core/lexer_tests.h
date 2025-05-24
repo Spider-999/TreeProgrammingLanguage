@@ -27,7 +27,9 @@ static TestTokens testTokens[] =
     {RIGHT_PARENTHESIS_TOK,  ")"},
     {LEFT_BRACKET_TOK     ,  "{"},
     {RIGHT_BRACKET_TOK    ,  "}"},
-    {IDENTIFIER_TOK       ,  "let"},
+    {SET_TOK              ,  "set"},
+    {BLOCK_TOK            ,  "block"},
+    {INTEGER_TOK          ,  "592"},
     {EOF_TOK              ,  "" }
 };
 

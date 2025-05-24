@@ -15,10 +15,11 @@
 Token getTokenFromLexer(Lexer *lexer)
 {
     Token token;
-    char character;
+    char character = '\0';
 
     // If the lexer's currentChar pointers is on a
-    // whitespace, traverse until we find chars that aren't whitespaces.
+    // whitespace, tab, carriage return or endline
+    // traverse until we find chars that aren't whitespaces.
     while (isspace(lexer->currentChar))
     {
         readChar(lexer);
@@ -85,7 +86,12 @@ Token getTokenFromLexer(Lexer *lexer)
             if (isLetter(character))
             {
                 token.literal = readIdentifier(lexer, token.literal);
-                token = createToken(IDENTIFIER_TOK, token.literal);
+                token.type = getKeywordFromIdentifier(token.literal);
+            }
+            else if (isDigit(character))
+            {
+                token.literal = readIdentifier(lexer, token.literal);
+                token.type = INTEGER_TOK;
             }
             else
             {
@@ -110,4 +116,21 @@ Token createToken(const TokenType tokenType, char *literal)
 const char* tokenTypeToString(TokenType tokenType)
 {
     return tokenStrings[tokenType];
+}
+
+/************************************************************
+* DESCRIPTION:
+* This function determines if an identifier that has been
+* read is a keyword and returns the appropriate type, otherwise
+* it just returns an IDENTIFIER_TOK type.
+************************************************************/
+TokenType getKeywordFromIdentifier(const char *identifier)
+{
+    const size_t keywordsSize = sizeof(keywordsMap) / sizeof(keywordsMap[0]);
+    for (size_t i = 0; i < keywordsSize; i++)
+    {
+        if (strcmp(identifier, keywordsMap[i].identifier) == 0)
+            return keywordsMap[i].type;
+    }
+    return IDENTIFIER_TOK;
 }

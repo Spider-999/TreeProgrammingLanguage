@@ -44,25 +44,18 @@ void readChar(Lexer *lexer)
     lexer->readPosition++;
 }
 
-size_t getIdentifierSize(Lexer *lexer)
-{
-    size_t identifierSize = 0;
-
-    while (isLetter(lexer->currentChar))
-    {
-        identifierSize++;
-        readChar(lexer);
-    }
-
-    return identifierSize;
-}
-
+/************************************************************
+* DESCRIPTION:
+* This function reads all the letters in an identifier
+* and then reallocates memory for it and returns it to
+* make a new token.
+************************************************************/
 char *readIdentifier(Lexer *lexer, char *identifier)
 {
     size_t identifierSize = 0;
     size_t startPosition = lexer->position;
 
-    while (isLetter(lexer->currentChar))
+    while (isLetter(lexer->currentChar) || isDigit(lexer->currentChar))
     {
         identifierSize++;
         readChar(lexer);

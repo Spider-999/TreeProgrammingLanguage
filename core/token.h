@@ -26,8 +26,8 @@ typedef enum TokenType
     LEFT_BRACKET_TOK,
     RIGHT_BRACKET_TOK,
     // Keywords
-    FUNCTION_TOK,
-    LET_TOK
+    BLOCK_TOK,
+    SET_TOK
 } TokenType;
 
 /************************************************************
@@ -38,6 +38,12 @@ typedef struct Token
     TokenType type; // Holds the type of the token
     char  *literal; // The literal is the value this token might hold
 } Token;
+
+typedef struct KeywordsMap
+{
+    char      *identifier;
+    TokenType type;
+} KeywordsMap;
 
 /************************************************************
 * DEFINES
@@ -63,11 +69,18 @@ static const char *tokenStrings[] =
     "}"
 };
 
+static const KeywordsMap keywordsMap[] =
+{
+    {"block", BLOCK_TOK},
+    {"set", SET_TOK}
+};
+
 /************************************************************
 * FUNCTIONS
 ************************************************************/
 Token       getTokenFromLexer(Lexer* );
 Token       createToken(TokenType , char *);
 const char *tokenTypeToString(TokenType);
+TokenType   getKeywordFromIdentifier(const char *);
 
 #endif //TOKEN_H
