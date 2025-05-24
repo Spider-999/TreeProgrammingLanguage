@@ -48,6 +48,36 @@ Token getTokenFromLexer(Lexer *lexer)
             token.literal[1] = '\0';
             token = createToken(PLUS_TOK, token.literal);
             break;
+        case '-':
+            token.literal[0] = character;
+            token.literal[1] = '\0';
+            token = createToken(MINUS_TOK, token.literal);
+            break;
+        case '!':
+            token.literal[0] = character;
+            token.literal[1] = '\0';
+            token = createToken(NOT_TOK, token.literal);
+            break;
+        case '*':
+            token.literal[0] = character;
+            token.literal[1] = '\0';
+            token = createToken(MULTIPLY_TOK, token.literal);
+            break;
+        case '/':
+            token.literal[0] = character;
+            token.literal[1] = '\0';
+            token = createToken(DIVIDE_TOK, token.literal);
+            break;
+        case '<':
+            token.literal[0] = character;
+            token.literal[1] = '\0';
+            token = createToken(LESS_THAN_TOK, token.literal);
+            break;
+        case '>':
+            token.literal[0] = character;
+            token.literal[1] = '\0';
+            token = createToken(GREATER_THAN_TOK, token.literal);
+            break;
         case ',':
             token.literal[0] = character;
             token.literal[1] = '\0';

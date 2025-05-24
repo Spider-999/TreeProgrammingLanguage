@@ -22,7 +22,7 @@ typedef struct Lexer
 ************************************************************/
 Lexer  newLexer(char *);
 void   readChar(Lexer *);
-char*  readDigits(Lexer *, char *);
+char   peekChar(Lexer *);
 char*  readIdentifier(Lexer *, char *);
 
 #endif //LEXER_H

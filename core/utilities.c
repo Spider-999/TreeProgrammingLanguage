@@ -7,12 +7,12 @@
 * FUNCTIONS
 ************************************************************/
 
-int isLetter(char c)
+int isLetter(const char c)
 {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' || c == '-';
 }
 
-int isDigit(char d)
+int isDigit(const char d)
 {
     return (d >= '0' && d <= '9');
 }

@@ -44,6 +44,14 @@ void readChar(Lexer *lexer)
     lexer->readPosition++;
 }
 
+char peekChar(Lexer *lexer)
+{
+    if (lexer->readPosition >= strlen(lexer->input))
+        return '\0';
+
+    return lexer->input[lexer->readPosition];
+}
+
 /************************************************************
 * DESCRIPTION:
 * This function reads all the letters in an identifier
@@ -52,10 +60,19 @@ void readChar(Lexer *lexer)
 ************************************************************/
 char *readIdentifier(Lexer *lexer, char *identifier)
 {
-    size_t identifierSize = 0;
+    size_t identifierSize = 1;
     size_t startPosition = lexer->position;
 
-    while (isLetter(lexer->currentChar) || isDigit(lexer->currentChar))
+    /*
+     * I found that it is better to check if the peek character is
+     * a digit or letter because if we check the current char and
+     * read it, then at the end of the function we have to rewind
+     * the last readChar function call to not jump over a character.
+     * That is because after reading the identifier, in getTokenFromLexer
+     * we call readChar() at the end of the switch, thus we would lose
+     * a character in the process.
+     */
+    while (isLetter(peekChar(lexer)) || isDigit(peekChar(lexer)))
     {
         identifierSize++;
         readChar(lexer);
@@ -70,12 +87,14 @@ char *readIdentifier(Lexer *lexer, char *identifier)
     identifier = realloc(identifier,sizeof(char) * identifierSize);
     if (identifier == NULL)
     {
-        fprintf(stderr, "[MEMORY ERROR] Could not reallocate memory for identifier\n");
+        fprintf(stderr, "[MEMORY ERROR] Could not reallocate memory for identifier!\n");
         exit(1);
     }
 
     strncpy(identifier, lexer->input + startPosition, identifierSize);
     identifier[identifierSize] = '\0';
+
+
 
     return identifier;
 }

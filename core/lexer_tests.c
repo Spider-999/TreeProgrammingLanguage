@@ -7,7 +7,18 @@
 
 void TestNextToken()
 {
-    char input[] = "=+,;(){} set block   592   ";
+    char input[] = "set number1 = 5;"
+                   "set number2 = 6;"
+                   "block(x, y)"
+                   "{"
+                   "    x * y;"
+                   "};"
+                   "if(number1 > number2)"
+                   "    return true;"
+                   "else"
+                   "    return false;"
+                   "number1 == number2;"
+                   "number1 != number2  ;";
     Lexer lexer = newLexer(input);
 
     size_t testSize = sizeof(testTokens) / sizeof(testTokens[0]);

@@ -18,6 +18,12 @@ typedef enum TokenType
     // Operators
     ASSIGN_TOK,
     PLUS_TOK,
+    MINUS_TOK,
+    NOT_TOK,
+    MULTIPLY_TOK,
+    DIVIDE_TOK,
+    LESS_THAN_TOK,
+    GREATER_THAN_TOK,
     // Delimiters
     COMMA_TOK,
     SEMICOLON_TOK,
@@ -27,7 +33,12 @@ typedef enum TokenType
     RIGHT_BRACKET_TOK,
     // Keywords
     BLOCK_TOK,
-    SET_TOK
+    SET_TOK,
+    TRUE_TOK,
+    FALSE_TOK,
+    IF_TOK,
+    ELSE_TOK,
+    RETURN_TOK
 } TokenType;
 
 /************************************************************
@@ -61,6 +72,12 @@ static const char *tokenStrings[] =
     "INTEGER",
     "=",
     "+",
+    "-",
+    "!",
+    "*",
+    "/",
+    "<",
+    ">",
     ",",
     ";",
     "(",
@@ -72,7 +89,12 @@ static const char *tokenStrings[] =
 static const KeywordsMap keywordsMap[] =
 {
     {"block", BLOCK_TOK},
-    {"set", SET_TOK}
+    {"set"  , SET_TOK},
+    {"true" , TRUE_TOK},
+    {"false", FALSE_TOK},
+    {"if"   , IF_TOK},
+    {"else" , ELSE_TOK},
+    {"return",RETURN_TOK}
 };
 
 /************************************************************
