@@ -1,9 +1,10 @@
 #include <stdio.h>
 
 #include "core/lexer_tests.h"
+#include "core/repl.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
-    TestNextToken();
+    runInteractiveMode();
     return 0;
 }

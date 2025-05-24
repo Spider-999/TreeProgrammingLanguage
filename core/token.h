@@ -10,8 +10,8 @@
 ************************************************************/
 typedef enum TokenType
 {
-    ILLEGAL_TOK,    // Reserved for unknown tokens.
-    EOF_TOK,        // Reserved for end-of-file, tells the parser it can stop parsing.
+    NOT_ALLOWED_TOK,    // Reserved for unknown tokens.
+    EOF_TOK,            // Reserved for end-of-file, tells the parser it can stop parsing.
     // Identifiers and literals
     IDENTIFIER_TOK,
     INTEGER_TOK,
@@ -31,6 +31,9 @@ typedef enum TokenType
     RIGHT_PARENTHESIS_TOK,
     LEFT_BRACKET_TOK,
     RIGHT_BRACKET_TOK,
+    // LOGIC
+    EQUAL_TOK,
+    NOT_EQUAL_TOK,
     // Keywords
     BLOCK_TOK,
     SET_TOK,
@@ -66,24 +69,28 @@ typedef struct KeywordsMap
 ************************************************************/
 static const char *tokenStrings[] =
 {
-    "ILLEGAL",
+    "NOT ALLOWED",
     "EOF",
     "IDENTIFIER",
     "INTEGER",
-    "=",
-    "+",
-    "-",
-    "!",
-    "*",
-    "/",
-    "<",
-    ">",
-    ",",
-    ";",
-    "(",
-    ")",
-    "{",
-    "}"
+    "EQUAL",
+    "PLUS",
+    "MINUS",
+    "NOT",
+    "MULTIPLY",
+    "DIVIDE",
+    "LESS THAN",
+    "GREATER THAN",
+    "COMMA",
+    "SEMICOLON",
+    "LEFT PARENTHESIS",
+    "RIGHT PARENTHESIS",
+    "LEFT BRACKET",
+    "RIGHT BRACKET",
+    "EQUALS",
+    "NOT EQUALS",
+    "BLOCK",
+    "SET"
 };
 
 static const KeywordsMap keywordsMap[] =

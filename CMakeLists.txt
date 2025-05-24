@@ -11,4 +11,6 @@ add_executable(TreeProgrammingLanguage main.c
         core/lexer_tests.c
         core/lexer_tests.h
         core/utilities.c
-        core/utilities.h)
+        core/utilities.h
+        core/repl.c
+        core/repl.h)

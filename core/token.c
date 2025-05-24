@@ -2,7 +2,6 @@
 * INCLUDES
 ************************************************************/
 #include "token.h"
-
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -12,6 +11,7 @@
 /************************************************************
 * FUNCTIONS
 ************************************************************/
+
 /************************************************************
 * DESCRIPTION:
 * This function creates tokens out of the given input.
@@ -40,9 +40,27 @@ Token getTokenFromLexer(Lexer *lexer)
     switch (character)
     {
         case '=':
-            token.literal[0] = character;
-            token.literal[1] = '\0';
-            token = createToken(ASSIGN_TOK, token.literal);
+            if (peekChar(lexer) == '=')
+            {
+                token.literal = realloc(token.literal, sizeof(char) * 3);
+                if (token.literal == NULL)
+                {
+                    fprintf(stderr, "[MEMORY ERROR] Token literal memory allocation failed!\n");
+                    exit(1);
+                }
+
+                token.literal[0] = '=';
+                token.literal[1] = '=';
+                token.literal[2] = '\0';
+                readChar(lexer);
+                token = createToken(EQUAL_TOK, token.literal);
+            }
+            else
+            {
+                token.literal[0] = character;
+                token.literal[1] = '\0';
+                token = createToken(ASSIGN_TOK, token.literal);
+            }
             break;
         case '+':
             token.literal[0] = character;
@@ -55,9 +73,27 @@ Token getTokenFromLexer(Lexer *lexer)
             token = createToken(MINUS_TOK, token.literal);
             break;
         case '!':
-            token.literal[0] = character;
-            token.literal[1] = '\0';
-            token = createToken(NOT_TOK, token.literal);
+            if (peekChar(lexer) == '=')
+            {
+                token.literal = realloc(token.literal, sizeof(char) * 3);
+                if (token.literal == NULL)
+                {
+                    fprintf(stderr, "[MEMORY ERROR] Token literal memory allocation failed!\n");
+                    exit(1);
+                }
+
+                token.literal[0] = '!';
+                token.literal[1] = '=';
+                token.literal[2] = '\0';
+                readChar(lexer);
+                token = createToken(NOT_EQUAL_TOK, token.literal);
+            }
+            else
+            {
+                token.literal[0] = character;
+                token.literal[1] = '\0';
+                token = createToken(NOT_TOK, token.literal);
+            }
             break;
         case '*':
             token.literal[0] = character;
@@ -128,7 +164,7 @@ Token getTokenFromLexer(Lexer *lexer)
             {
                 token.literal[0] = character;
                 token.literal[1] = '\0';
-                token = createToken(ILLEGAL_TOK, token.literal);
+                token = createToken(NOT_ALLOWED_TOK, token.literal);
             }
             break;
     }
@@ -142,7 +178,6 @@ Token getTokenFromLexer(Lexer *lexer)
 * DESCRIPTION:
 * Creates a new token from the given literal and token type.
 ************************************************************/
-
 Token createToken(const TokenType tokenType, char *literal)
 {
     const Token token = {tokenType, literal};
