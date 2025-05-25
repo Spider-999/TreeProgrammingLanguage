@@ -13,4 +13,10 @@ add_executable(TreeProgrammingLanguage main.c
         core/utilities.c
         core/utilities.h
         core/repl.c
-        core/repl.h)
+        core/repl.h
+        core/ast.c
+        core/ast.h
+        core/parser.c
+        core/parser.h
+        tests/statement_tests.c
+        tests/statement_tests.h)

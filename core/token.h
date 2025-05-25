@@ -3,6 +3,7 @@
 /************************************************************
 * INCLUDES
 ************************************************************/
+#include "ast.h"
 #include "lexer.h"
 
 /************************************************************
@@ -58,6 +59,19 @@ typedef struct KeywordsMap
     char      *identifier;
     TokenType type;
 } KeywordsMap;
+
+typedef struct Identifier
+{
+    Token  token;
+    char*  value;
+}Identifier;
+
+typedef struct setStatement
+{
+    Token         token;
+    Identifier    *name;
+    astExpression value;
+}setStatement;
 
 /************************************************************
 * DEFINES
