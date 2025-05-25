@@ -3,133 +3,91 @@
 ************************************************************/
 #include "parser.h"
 #include <stdio.h>
+#include <string.h>
 
 /************************************************************
 * FUNCTIONS
 ************************************************************/
 Parser newParser(Lexer *lexer)
 {
-    Parser parser = { .lexer = lexer };
-
-    updateParserTokens(&parser);
+    Parser parser = {.lexer = lexer};
+    nextParserToken(&parser);
+    nextParserToken(&parser);
 
     return parser;
 }
 
-void updateParserTokens(Parser *parser)
+void nextParserToken(Parser *parser)
 {
     parser->currentToken = parser->peekToken;
-    parser->peekToken = getTokenFromLexer(parser->lexer);
-}
 
-/************************************************************
-* DESCRIPTION: Count the number of statements in order
-* to know how much memory to allocate for the program's
-* statements array.
-************************************************************/
-size_t countNumberOfStatements(Parser *parser)
-{
-    size_t count = 0;
-    // TODO: Fix this function
-    while (parser->currentToken.type != EOF_TOK)
-    {
-        updateParserTokens(parser);
-        count++;
-    }
-    return count;
+    if (parser->currentToken.type != EOF_TOK)
+        parser->peekToken = getTokenFromLexer(parser->lexer);
 }
 
 int expectedTokenType(Parser *parser, TokenType type)
 {
-    if (parser->peekToken.type != type)
-        return 0;
+    if (parser->peekToken.type == type)
+    {
+        nextParserToken(parser);
+        return 1;
+    }
 
-    updateParserTokens(parser);
-    return 1;
+    return 0;
 }
 
 /************************************************************
 * DESCRIPTION: Create a new parse program.
 ************************************************************/
-astProgram *newParseProgram(size_t numberOfStatements)
+astProgram newParseProgram()
 {
-    astProgram *program = (astProgram *)malloc(sizeof(astProgram));
-    program->numberOfStatements = numberOfStatements;
-    program->statements = (astStatement*)malloc(sizeof(astStatement) * numberOfStatements);
 
-    if(program->statements == NULL)
-    {
-        fprintf(stderr,"[MEMORY ERROR] Couldn't allocate memory for the AST program\n");
-        exit(1);
-    }
-    return program;
 }
 
-astProgram *parseProgram(Parser *parser)
+astProgram parseProgram(Parser *parser)
 {
-    size_t numberOfStatements = countNumberOfStatements(parser);
     size_t i = 0;
-    astProgram *program = newParseProgram(numberOfStatements);
+    astProgram program;
 
     while (parser->currentToken.type != EOF_TOK)
     {
-        astStatement *statement = parseStatement(parser);
-        if (statement != NULL)
-        {
-            program->statements[i++] = *statement;
-            fprintf(stdout, "statement %i: %s\n", i, statement[i].name->value);
-        }
-        updateParserTokens(parser);
+        astStatement statement;
+        parseStatement(parser, &statement);
+
+        program.statements[i++] = statement;
+        nextParserToken(parser);
     }
 
     return program;
 }
 
-astStatement *parseStatement(Parser *parser)
+astStatement *parseStatement(Parser *parser, astStatement *statement)
 {
-    astStatement *statement;
     switch (parser->currentToken.type)
     {
         case SET_TOK:
-            statement = parseSetStatement(parser);
-            break;
+            return parseSetStatement(parser, statement);
         default:
-            statement = NULL;
-            break;
+            return NULL;
     }
-
-    return statement;
 }
 
-astStatement *parseSetStatement(Parser *parser)
+astStatement *parseSetStatement(Parser *parser, astStatement *statement)
 {
-    astStatement *setStatement = malloc(sizeof(astStatement));
-    if (setStatement == NULL)
-    {
-        fprintf(stderr, "[MEMORY ERROR] Failed to allocated memory for set statement\n");
-        exit(1);
-    }
-    setStatement->token = parser->currentToken;
-
+    statement->token = parser->currentToken;
     if (!expectedTokenType(parser, IDENTIFIER_TOK))
         return NULL;
 
-    Identifier *name = (Identifier*)malloc(sizeof(Identifier));
-    if (name == NULL)
-    {
-        fprintf(stderr, "[MEMORY ERROR] Failed to allocated memory for identifier in set statement\n");
-        exit(1);
-    }
-    name->token = parser->currentToken;
-    name->value = parser->currentToken.literal;
-    setStatement->name = name;
+    Identifier identifier = {.token=parser->currentToken};
+    strcpy(identifier.value, parser->currentToken.literal);
+    statement->name = identifier;
 
     if (!expectedTokenType(parser, ASSIGN_TOK))
         return NULL;
 
-    while (parser->currentToken.type != SEMICOLON_TOK)
-        updateParserTokens(parser);
+    while (parser->currentToken.type != SEMICOLON_TOK && parser->currentToken.type != EOF_TOK)
+        nextParserToken(parser);
 
-    return setStatement;
+    return statement;
 }
 

@@ -21,13 +21,13 @@ typedef struct Parser
 * FUNCTIONS
 ************************************************************/
 Parser       newParser(Lexer *);
-void         updateParserTokens(Parser *);
+void         nextParserToken(Parser *);
 size_t       countNumberOfStatements(Parser *);
 int          expectedTokenType(Parser *, TokenType);
-astProgram   *newParseProgram(size_t);
-astProgram   *parseProgram(Parser *);
-astStatement *parseStatement(Parser *);
-astStatement *parseSetStatement(Parser *);
+astProgram   newParseProgram();
+astProgram   parseProgram(Parser *);
+astStatement *parseStatement(Parser *, astStatement *);
+astStatement *parseSetStatement(Parser *, astStatement *);
 
 
 #endif //PARSER_H

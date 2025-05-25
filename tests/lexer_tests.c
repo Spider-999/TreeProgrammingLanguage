@@ -42,6 +42,6 @@ void testNextToken()
             fprintf(stderr, "Expected literal \'%s\', got \'%s\'\n", testTokens[i].expectedLiteral, token.literal);
         }
 
-        fprintf(stdout, "%ld %s\n", token.type, token.literal);
+        fprintf(stdout, "%ld %s %s\n", token.type, tokenTypeToString(token.type), token.literal);
     }
 }

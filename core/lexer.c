@@ -97,6 +97,5 @@ char *readIdentifier(Lexer *lexer, char *identifier)
 
     strncpy(identifier, lexer->input + startPosition, identifierSize);
     identifier[identifierSize] = '\0';
-
     return identifier;
 }

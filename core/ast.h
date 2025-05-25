@@ -16,7 +16,7 @@
 typedef struct Identifier
 {
     Token  token;
-    char*  value;
+    char  value[100];
 }Identifier;
 
 typedef struct astExpression
@@ -27,7 +27,7 @@ typedef struct astExpression
 typedef struct astStatement
 {
     Token         token;
-    Identifier    *name;
+    Identifier    name;
     astExpression value;
 }astStatement;
 
@@ -37,7 +37,7 @@ typedef struct astStatement
  */
 typedef struct astProgram
 {
-    astStatement  *statements;
+    astStatement  statements[1000];
     size_t        numberOfStatements;
 }astProgram;
 
