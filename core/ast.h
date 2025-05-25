@@ -1,5 +1,8 @@
 #ifndef AST_H
 #define AST_H
+/************************************************************
+* INCLUDES
+************************************************************/
 #include "token.h"
 
 /*
@@ -7,24 +10,26 @@
  * connected to each other. Some nodes implement the statements, while
  * other nodes implement the expression.
  */
-
 /************************************************************
 * STRUCTURES
 ************************************************************/
-typedef struct astNode
+typedef struct Identifier
 {
-    char *tokenLiteral;
-}astNode;
-
-typedef struct astStatement
-{
-    astNode node;
-}astStatement;
+    Token  token;
+    char*  value;
+}Identifier;
 
 typedef struct astExpression
 {
-    astNode node;
+    Token token;
 }astExpression;
+
+typedef struct astStatement
+{
+    Token         token;
+    Identifier    *name;
+    astExpression value;
+}astStatement;
 
 /*
  * Every program is a series of statements. These
@@ -35,6 +40,7 @@ typedef struct astProgram
     astStatement  *statements;
     size_t        numberOfStatements;
 }astProgram;
+
 
 /************************************************************
 * FUNCTIONS

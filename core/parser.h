@@ -3,6 +3,7 @@
 /************************************************************
 * INCLUDES
 ************************************************************/
+#include "ast.h"
 #include "lexer.h"
 #include "token.h"
 
@@ -19,9 +20,14 @@ typedef struct Parser
 /************************************************************
 * FUNCTIONS
 ************************************************************/
-Parser      newParser(Lexer *);
-void        updateParserTokens(Parser *);
-astProgram  *parseProgram(Parser *);
+Parser       newParser(Lexer *);
+void         updateParserTokens(Parser *);
+size_t       countNumberOfStatements(Parser *);
+int          expectedTokenType(Parser *, TokenType);
+astProgram   *newParseProgram(size_t);
+astProgram   *parseProgram(Parser *);
+astStatement *parseStatement(Parser *);
+astStatement *parseSetStatement(Parser *);
 
 
 #endif //PARSER_H

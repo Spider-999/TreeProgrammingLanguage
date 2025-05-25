@@ -21,7 +21,7 @@ Lexer newLexer(char *input)
     lexer.input = input;
     lexer.readPosition = 0;
     lexer.position = 0;
-    lexer.currentChar = "";
+    lexer.currentChar = '\0';
     readChar(&lexer);
     return lexer;
 }

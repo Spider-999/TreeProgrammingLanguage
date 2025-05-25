@@ -2,12 +2,13 @@
 * INCLUDES
 ************************************************************/
 #include "tests/lexer_tests.h"
+#include "tests/statement_tests.h"
 
 /************************************************************
 * MAIN
 ************************************************************/
 int main(int argc, char **argv)
 {
-    testNextToken();
+    testSetStatements();
     return 0;
 }
