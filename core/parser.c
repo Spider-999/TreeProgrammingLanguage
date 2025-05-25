@@ -48,12 +48,19 @@ astProgram parseProgram(Parser *parser)
 {
     size_t i = 0;
     astProgram program;
+    program.statements = NULL;
 
     while (parser->currentToken.type != EOF_TOK)
     {
         astStatement statement;
         parseStatement(parser, &statement);
+        program.statements = (astStatement *)realloc(program.statements,sizeof(astStatement) * (i + 1));
 
+        if (program.statements == NULL)
+        {
+            fprintf(stderr, "[MEMORY ERROR] Failed to reallocate memory for statements\n");
+            exit(1);
+        }
         program.statements[i++] = statement;
         nextParserToken(parser);
     }
@@ -79,7 +86,7 @@ astStatement *parseSetStatement(Parser *parser, astStatement *statement)
         return NULL;
 
     Identifier identifier = {.token=parser->currentToken};
-    strcpy(identifier.value, parser->currentToken.literal);
+    identifier.value = parser->currentToken.literal;
     statement->name = identifier;
 
     if (!expectedTokenType(parser, ASSIGN_TOK))
@@ -90,4 +97,10 @@ astStatement *parseSetStatement(Parser *parser, astStatement *statement)
 
     return statement;
 }
+
+void freeProgramMemory(astProgram *program)
+{
+    free(program->statements);
+}
+
 

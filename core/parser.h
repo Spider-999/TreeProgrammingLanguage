@@ -28,6 +28,7 @@ astProgram   newParseProgram();
 astProgram   parseProgram(Parser *);
 astStatement *parseStatement(Parser *, astStatement *);
 astStatement *parseSetStatement(Parser *, astStatement *);
+void          freeProgramMemory(astProgram *);
 
 
 #endif //PARSER_H
